@@ -8,7 +8,7 @@
 
 ## Tech stack
 
-- Front-end: ReactJS, Redux, Redux-saga, TypeScript, Material UI
+- Front-end: ReactJS, Redux, Redux-saga, Reselect, Redux-persist, TypeScript, Material UI
 - Back-end: ExpressJS, RESTful
 - Database: MongoDB
 
