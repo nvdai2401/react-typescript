@@ -1,17 +1,11 @@
 import React from 'react'
 
-import { PieChart } from '../components'
-
 export interface Props {
   name: string
 }
 
 const Transactions: React.FC<Props> = () => {
-  return (
-    <div>
-      Transactions <PieChart />
-    </div>
-  )
+  return <div>Transactions</div>
 }
 
 export default Transactions
