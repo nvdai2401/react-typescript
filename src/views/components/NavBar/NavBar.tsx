@@ -1,10 +1,15 @@
-import React from 'react'
-import { Box, Button, Grid } from '@material-ui/core'
+import React, { useState } from 'react'
+import { RouteComponentProps, withRouter } from 'react-router'
+import clsx from 'clsx'
+
+import { Button, Grid } from '@material-ui/core'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/core/styles'
+
+import { NavBarItem } from './components'
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -32,61 +37,63 @@ const styles = makeStyles((theme) => ({
       fontWeight: 500,
     },
     '&:hover': {
-      color: '#511378',
+      color: theme.palette.primary.main,
     },
   },
   active: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.main,
     '&:hover': {
       backgroundColor: theme.palette.common.white,
     },
   },
 }))
 
-export interface Props {
-  name?: string
-}
+const routes = [
+  {
+    path: '/',
+    title: 'Transactions',
+    icon: <AccountBalanceWalletIcon />,
+  },
+  {
+    path: '/report',
+    title: 'Report',
+    icon: <AssessmentIcon />,
+  },
+  {
+    path: '/budget',
+    title: 'Budget',
+    icon: <AccountBalanceIcon />,
+  },
+]
 
-const NavBar: React.FC<Props> = () => {
+const NavBar = (props: RouteComponentProps<any>) => {
   const classes = styles()
+  const { location, history } = props
+  const [currentRoute, setCurrentRoute] = useState(location.pathname || {})
 
-  const handleOnChangePage = () => {}
+  const handleOnChangeRoute = (path: string): void => {
+    setCurrentRoute(path)
+    history.push(path)
+  }
+  const setActiveTab = (path: string): any => {
+    return currentRoute === path ? classes.active : ''
+  }
   return (
     <Grid className={classes.root}>
-      <Button
-        color="primary"
-        className={classes.tab}
-        onClick={() => handleOnChangePage()}
-      >
+      <Button className={classes.tab}>
         <MenuIcon />
       </Button>
-      <Button
-        color="primary"
-        className={classes.tab}
-        onClick={() => handleOnChangePage()}
-      >
-        <AccountBalanceWalletIcon />
-        <span>Transactions</span>
-      </Button>
-      <Button
-        color="primary"
-        className={classes.tab}
-        onClick={() => handleOnChangePage()}
-      >
-        <AssessmentIcon />
-        <span>Report</span>
-      </Button>
-      <Button
-        color="primary"
-        className={classes.tab}
-        onClick={() => handleOnChangePage()}
-      >
-        <AccountBalanceIcon />
-        <span>Budget</span>
-      </Button>
+      {routes.map((route, index) => (
+        <NavBarItem
+          key={index}
+          styles={clsx(classes.tab, setActiveTab(route.path))}
+          title={route.title}
+          icon={route.icon}
+          handleOnClick={() => handleOnChangeRoute(route.path)}
+        />
+      ))}
     </Grid>
   )
 }
 
-export default NavBar
+export default withRouter(NavBar)
