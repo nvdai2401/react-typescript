@@ -21,6 +21,7 @@ const styles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100vw',
     height: 'auto',
+    zIndex: 3,
   },
   tab: {
     position: 'relative',
@@ -66,6 +67,7 @@ const styles = makeStyles((theme) => ({
     },
     menu_button: {
       display: 'block',
+      height: 64,
     },
     account_button: {
       display: 'none',

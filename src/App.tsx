@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { NavBar } from 'views/components'
+import { NavBar, ToolBar } from 'views/components'
 
 const Transactions = lazy(() => import('./views/Transactions'))
 const Report = lazy(() => import('./views/Report'))
@@ -10,6 +10,7 @@ const Budget = lazy(() => import('./views/Budget'))
 const App = (): JSX.Element => {
   return (
     <>
+      <ToolBar />
       <NavBar />
       <Switch>
         <Suspense fallback={() => <div>Error</div>}>
