@@ -4,23 +4,23 @@ import clsx from 'clsx'
 
 import { Button, Grid } from '@material-ui/core'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
+import AddIcon from '@material-ui/icons/Add'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import MenuIcon from '@material-ui/icons/Menu'
+import PersonIcon from '@material-ui/icons/Person'
 import { makeStyles } from '@material-ui/core/styles'
-
-import { NavBarItem } from './components'
 
 const styles = makeStyles((theme) => ({
   root: {
-    position: 'relative',
-    height: '100vh',
-    width: 80,
     boxShadow: '0 3px 7px 0 rgba(0,0,0,.27)',
     backgroundColor: theme.palette.background.paper,
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
+    position: 'fixed',
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    width: '100vw',
+    height: 'auto',
   },
   tab: {
     position: 'relative',
@@ -39,32 +39,44 @@ const styles = makeStyles((theme) => ({
     '&:hover': {
       color: theme.palette.primary.main,
     },
+    [theme.breakpoints.down('sm')]: {
+      padding: '6px 0',
+    },
+  },
+  menu_button: {
+    display: 'none',
+  },
+  account_button: {},
+  add_button: {
+    minWidth: 40,
+    height: 40,
+    borderRadius: '50%',
   },
   active: {
     color: theme.palette.primary.main,
-    '&:hover': {
-      backgroundColor: theme.palette.common.white,
+  },
+  [theme.breakpoints.up('md')]: {
+    root: {
+      height: '100vh',
+      width: 80,
+      flexDirection: 'column',
+    },
+    add_button: {
+      display: 'none',
+    },
+    menu_button: {
+      display: 'block',
+    },
+    account_button: {
+      display: 'none',
+    },
+    active: {
+      '&:hover': {
+        backgroundColor: theme.palette.common.white,
+      },
     },
   },
 }))
-
-const routes = [
-  {
-    path: '/',
-    title: 'Transactions',
-    icon: <AccountBalanceWalletIcon />,
-  },
-  {
-    path: '/report',
-    title: 'Report',
-    icon: <AssessmentIcon />,
-  },
-  {
-    path: '/budget',
-    title: 'Budget',
-    icon: <AccountBalanceIcon />,
-  },
-]
 
 const NavBar = (props: RouteComponentProps<any>) => {
   const classes = styles()
@@ -80,18 +92,41 @@ const NavBar = (props: RouteComponentProps<any>) => {
   }
   return (
     <Grid className={classes.root}>
-      <Button className={classes.tab}>
+      <Button className={clsx(classes.tab, classes.menu_button)}>
         <MenuIcon />
       </Button>
-      {routes.map((route, index) => (
-        <NavBarItem
-          key={index}
-          styles={clsx(classes.tab, setActiveTab(route.path))}
-          title={route.title}
-          icon={route.icon}
-          handleOnClick={() => handleOnChangeRoute(route.path)}
-        />
-      ))}
+      <Button
+        className={clsx(classes.tab, setActiveTab('/'))}
+        onClick={() => handleOnChangeRoute('/')}
+      >
+        <AccountBalanceWalletIcon />
+        <span>Transactions</span>
+      </Button>
+      <Button
+        className={clsx(classes.tab, setActiveTab('/report'))}
+        onClick={() => handleOnChangeRoute('/report')}
+      >
+        <AssessmentIcon />
+        <span>Report</span>
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        className={classes.add_button}
+      >
+        <AddIcon />
+      </Button>
+      <Button
+        className={clsx(classes.tab, setActiveTab('/budget'))}
+        onClick={() => handleOnChangeRoute('/budget')}
+      >
+        <AccountBalanceIcon />
+        <span>Budget</span>
+      </Button>
+      <Button className={clsx(classes.tab, classes.account_button)}>
+        <PersonIcon />
+        <span>Account</span>
+      </Button>
     </Grid>
   )
 }
