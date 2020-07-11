@@ -13,14 +13,30 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    height: 64,
+    height: 72,
     position: 'fixed',
     top: 0,
     zIndex: 2,
     backgroundColor: theme.palette.common.white,
     boxShadow: '0 1px 0 0 rgba(0,0,0,.12)',
+    padding: theme.spacing(1.5),
   },
-  [theme.breakpoints.up('md')]: {},
+  item__total: {},
+  item__tools: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  add_transactions__button: {
+    display: 'none',
+  },
+  [theme.breakpoints.up('md')]: {
+    more_button: {
+      display: 'none',
+    },
+    add_transactions__button: {
+      display: 'inline-block',
+    },
+  },
 }))
 
 interface ToolBarProps {
@@ -34,10 +50,11 @@ const ToolBar: React.FC<ToolBarProps> = (props: ToolBarProps) => {
   // const { title, styles, icon, handleOnClick } = props
   const classes = useStyles()
   return (
-    <Grid container className={classes.root}>
-      <Grid item>Total: 500</Grid>
-      <Grid item>Select time range</Grid>
-      <Grid item>
+    <Grid container justify="space-between" className={classes.root}>
+      <Grid item xs={5} className={classes.item__total}>
+        Total: 500
+      </Grid>
+      <Grid item xs={7} className={classes.item__tools}>
         <IconButton>
           <EventNoteIcon />
         </IconButton>
@@ -47,8 +64,17 @@ const ToolBar: React.FC<ToolBarProps> = (props: ToolBarProps) => {
         <IconButton>
           <SearchIcon />
         </IconButton>
+        <IconButton className={classes.more_button}>
+          <MoreVertIcon />
+        </IconButton>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.add_transactions__button}
+        >
+          Add Transactions
+        </Button>
       </Grid>
-      <Grid item>Button</Grid>
     </Grid>
   )
 }
