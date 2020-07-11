@@ -1,11 +1,9 @@
 import React from 'react'
-import clsx from 'clsx'
-import { Grid, Box, Button, IconButton } from '@material-ui/core'
+import { Grid, Button, IconButton } from '@material-ui/core'
 import EventNoteIcon from '@material-ui/icons/EventNote'
 import SearchIcon from '@material-ui/icons/Search'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import NotificationsIcon from '@material-ui/icons/Notifications'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -39,16 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-interface ToolBarProps {
-  // styles: any
-  // title: string
-  // icon?: JSX.Element
-  // handleOnClick: () => void
-}
-
-const ToolBar: React.FC<ToolBarProps> = (props: ToolBarProps) => {
-  // const { title, styles, icon, handleOnClick } = props
+const ToolBar: React.FC = () => {
   const classes = useStyles()
+
   return (
     <Grid container justify="space-between" className={classes.root}>
       <Grid item xs={5} className={classes.item__total}>
