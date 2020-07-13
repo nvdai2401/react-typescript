@@ -2,18 +2,16 @@ import React from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import {
+  TotalTransaction,
+  TransactionCard,
+} from 'views/Transactions/components/'
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100vw',
-    maxHeight: 'calc(100vh - 130px)',
-    height: '100%',
-    position: 'absolute',
-    left: 0,
-    top: 72,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '0 16px 16px',
+    height: 'calc(100vh - 190px)',
+    marginTop: 48,
+    overflow: 'auto',
   },
   [theme.breakpoints.up('md')]: {},
 }))
@@ -21,11 +19,12 @@ const useStyles = makeStyles((theme) => ({
 export interface Props {
   value: number
   index: number
+  children?: React.ReactNode
 }
 
-const TransactionsContent: React.FC = (props: any) => {
+const TransactionsContent: React.FC<Props> = (props: Props) => {
   const classes = useStyles()
-  const { children, value, index, ...other } = props
+  const { value, index, ...other } = props
 
   return (
     <div
@@ -34,11 +33,16 @@ const TransactionsContent: React.FC = (props: any) => {
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
+      className={classes.root}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+        <>
+          <TotalTransaction />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+        </>
       )}
     </div>
   )

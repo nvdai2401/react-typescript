@@ -2,7 +2,7 @@ import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 
-import { DateRangeBar, TotalTransaction, TransactionList } from './components'
+import { DateRangeBar } from './components'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '0 16px 16px',
   },
   [theme.breakpoints.up('md')]: {},
 }))
@@ -30,8 +29,6 @@ const Transactions: React.FC<Props> = () => {
   return (
     <div className={classes.root}>
       <DateRangeBar />
-      <TotalTransaction />
-      <TransactionList />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Box, Tabs, Tab, Typography, Paper } from '@material-ui/core'
+import { AppBar, Tabs, Tab } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -7,10 +7,12 @@ import { TransactionsContent } from 'views/Transactions/components/'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100vw',
+    width: '100%',
+    height: '100%',
   },
   tabsContainer: {
-    backgroundColor: theme.palette.common.white,
+    top: 72,
+    zIndex: 1,
   },
   [theme.breakpoints.up('md')]: {},
 }))
@@ -24,26 +26,6 @@ function a11yProps(index: number) {
     id: `scrollable-auto-tab-${index}`,
     'aria-controls': `scrollable-auto-tabpanel-${index}`,
   }
-}
-
-function TabPanel(props: any) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
 }
 
 const transactionList = [
@@ -62,17 +44,21 @@ const DateRangeBar: React.FC<Props> = () => {
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue)
   }
+
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar
+        position="fixed"
+        color="inherit"
+        className={classes.tabsContainer}
+      >
         <Tabs
           value={value}
           indicatorColor="primary"
           textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          className={classes.tabsContainer}
+          aria-label="scrollable"
           onChange={handleChange}
         >
           {transactionList.map((item, index) => (
@@ -81,9 +67,7 @@ const DateRangeBar: React.FC<Props> = () => {
         </Tabs>
       </AppBar>
       {transactionList.map((item, index) => (
-        <TransactionsContent key={item.id} index={index}>
-          {item.label}
-        </TransactionsContent>
+        <TransactionsContent key={item.id} index={index} value={value} />
       ))}
     </div>
   )

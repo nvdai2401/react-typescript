@@ -5,14 +5,16 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '90%',
-    padding: theme.spacing(1.5),
     marginTop: theme.spacing(1.5),
+    padding: theme.spacing(1.5),
+    borderLeft: 0,
+    borderRight: 0,
   },
   item__transactionFlow: {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
+    marginBottom: theme.spacing(1),
     '& .MuiTypography-body2': {
       lineHeight: 2,
     },
@@ -28,7 +30,7 @@ const TotalTransaction: React.FC<Props> = () => {
   const classes = useStyles()
 
   return (
-    <Paper elevation={3} variant="outlined" className={classes.root}>
+    <Paper elevation={0} square variant="outlined" className={classes.root}>
       <Grid container direction="column" alignItems="center">
         <Grid item className={classes.item__transactionFlow}>
           <Typography variant="body2" component="span">
@@ -46,7 +48,9 @@ const TotalTransaction: React.FC<Props> = () => {
             1005
           </Typography>
         </Grid>
-        <Button color="primary">View report for this period</Button>
+        <Button color="primary" variant="outlined" size="small">
+          View report for this period
+        </Button>
       </Grid>
     </Paper>
   )
