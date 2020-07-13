@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -15,8 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    flexGrow: 1,
-    padding: theme.spacing(2),
+    padding: '0 16px 16px',
   },
   [theme.breakpoints.up('md')]: {},
 }))
@@ -27,11 +26,7 @@ export interface Props {
 
 const Transactions: React.FC<Props> = () => {
   const classes = useStyles()
-  const [value, setValue] = useState(1)
 
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue)
-  }
   return (
     <div className={classes.root}>
       <DateRangeBar />
