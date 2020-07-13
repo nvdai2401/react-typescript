@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
-import { Grid, Button, Tabs, Tab, Paper } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
+
+import { DateRangeBar, TotalTransaction, TransactionList } from './components'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100vw',
+    maxHeight: 'calc(100vh - 130px)',
+    height: '100%',
     position: 'absolute',
     left: 0,
     top: 72,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    padding: theme.spacing(2),
   },
   [theme.breakpoints.up('md')]: {},
 }))
@@ -23,28 +27,16 @@ export interface Props {
 
 const Transactions: React.FC<Props> = () => {
   const classes = useStyles()
-  const [value, setValue] = useState(2)
+  const [value, setValue] = useState(1)
 
-  const handleChange = (newValue: any) => {
+  const handleChange = (event: any, newValue: any) => {
     setValue(newValue)
   }
   return (
     <div className={classes.root}>
-      <Grid>
-        <Paper>
-          <Tabs
-            value={value}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={handleChange}
-            aria-label="disabled tabs example"
-          >
-            <Tab label="Active" />
-            <Tab label="This month" />
-            <Tab label="Active" />
-          </Tabs>
-        </Paper>
-      </Grid>
+      <DateRangeBar />
+      <TotalTransaction />
+      <TransactionList />
     </div>
   )
 }
