@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import PersonIcon from '@material-ui/icons/Person'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { AddTransactionDialog } from 'views/components'
+
 const styles = makeStyles((theme) => ({
   root: {
     boxShadow: '0 3px 7px 0 rgba(0,0,0,.27)',
@@ -84,6 +86,9 @@ const NavBar = (props: RouteComponentProps<any>) => {
   const classes = styles()
   const { location, history } = props
   const [currentRoute, setCurrentRoute] = useState(location.pathname || {})
+  const [addTransactionDialogVisible, setTransactionDialogVisible] = useState(
+    true,
+  )
 
   const handleOnChangeRoute = (path: string): void => {
     setCurrentRoute(path)
@@ -115,6 +120,7 @@ const NavBar = (props: RouteComponentProps<any>) => {
         color="primary"
         variant="contained"
         className={classes.add_button}
+        onClick={() => setTransactionDialogVisible(true)}
       >
         <AddIcon />
       </Button>
@@ -129,6 +135,10 @@ const NavBar = (props: RouteComponentProps<any>) => {
         <PersonIcon />
         <span>Account</span>
       </Button>
+      <AddTransactionDialog
+        open={addTransactionDialogVisible}
+        onClose={() => setTransactionDialogVisible(false)}
+      />
     </Grid>
   )
 }
