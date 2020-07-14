@@ -12,6 +12,10 @@ import {
   IconButton,
   Slide,
   TextField,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
 } from '@material-ui/core'
 import { TransitionProps } from '@material-ui/core/transitions'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -21,10 +25,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(1.5),
     padding: theme.spacing(1.5),
-    borderLeft: 0,
-    borderRight: 0,
   },
   appBar: {
     position: 'relative',
@@ -32,6 +33,17 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
+  },
+  container__icon__input: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    '& svg': {
+      color: theme.palette.primary.main,
+    },
+  },
+  item__input: {
+    width: '90%',
   },
   [theme.breakpoints.up('md')]: {},
 }))
@@ -50,8 +62,8 @@ export interface Props {
 
 const AddTransactionDialog: React.FC<Props> = (props: Props) => {
   const classes = useStyles()
-
   const { open, onClose } = props
+  const [category, setCategory] = useState('')
 
   return (
     <Dialog
@@ -74,17 +86,41 @@ const AddTransactionDialog: React.FC<Props> = (props: Props) => {
             Add transaction
           </Typography>
           <Button autoFocus color="inherit" onClick={onClose}>
-            save
+            Save
           </Button>
         </Toolbar>
       </AppBar>
-      <Box>
+      <Box className={classes.root}>
         <Grid container>
           <Grid item xs={12}>
-            <div>
+            <Box className={classes.container__icon__input}>
               <MonetizationOnIcon />
-              <TextField id="input-with-icon-grid" label="With a grid" />
-            </div>
+              <TextField
+                label="Amount"
+                type="number"
+                className={classes.item__input}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box className={classes.container__icon__input}>
+              <MonetizationOnIcon />
+              <FormControl className={classes.item__input}>
+                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
+                    setCategory(event.target.value as string)
+                  }
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </Grid>
         </Grid>
       </Box>
