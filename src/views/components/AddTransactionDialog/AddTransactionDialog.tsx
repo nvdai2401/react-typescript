@@ -1,3 +1,4 @@
+import 'date-fns'
 import React, { useState } from 'react'
 import {
   AppBar,
@@ -16,10 +17,18 @@ import {
   MenuItem,
   Select,
   InputLabel,
+  ListSubheader,
 } from '@material-ui/core'
 import { TransitionProps } from '@material-ui/core/transitions'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
+import TodayIcon from '@material-ui/icons/Today'
+import NotesIcon from '@material-ui/icons/Notes'
+import BallotIcon from '@material-ui/icons/Ballot'
+
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
+import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -38,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    marginTop: theme.spacing(1.5),
     '& svg': {
       color: theme.palette.primary.main,
     },
@@ -64,6 +74,13 @@ const AddTransactionDialog: React.FC<Props> = (props: Props) => {
   const classes = useStyles()
   const { open, onClose } = props
   const [category, setCategory] = useState('')
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+    new Date(),
+  )
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date)
+  }
 
   return (
     <Dialog
@@ -96,6 +113,7 @@ const AddTransactionDialog: React.FC<Props> = (props: Props) => {
             <Box className={classes.container__icon__input}>
               <MonetizationOnIcon />
               <TextField
+                defaultValue="0"
                 label="Amount"
                 type="number"
                 className={classes.item__input}
@@ -104,9 +122,38 @@ const AddTransactionDialog: React.FC<Props> = (props: Props) => {
           </Grid>
           <Grid item xs={12}>
             <Box className={classes.container__icon__input}>
-              <MonetizationOnIcon />
+              <BallotIcon />
               <FormControl className={classes.item__input}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
+                    setCategory(event.target.value as string)
+                  }
+                >
+                  <ListSubheader>Category 1</ListSubheader>
+                  <MenuItem value={1}>Option 1</MenuItem>
+                  <MenuItem value={2}>Option 2</MenuItem>
+                  <ListSubheader>Category 2</ListSubheader>
+                  <MenuItem value={3}>Option 3</MenuItem>
+                  <MenuItem value={4}>Option 4</MenuItem>
+                  <ListSubheader>Category 3</ListSubheader>
+                  <MenuItem value={3}>Option 5</MenuItem>
+                  <MenuItem value={4}>Option 6</MenuItem>
+                  <ListSubheader>Category 4</ListSubheader>
+                  <MenuItem value={3}>Option 7</MenuItem>
+                  <MenuItem value={4}>Option 8</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box className={classes.container__icon__input}>
+              <AccountBalanceWalletIcon />
+              <FormControl className={classes.item__input}>
+                <InputLabel id="demo-simple-select-label">Wallet</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -120,6 +167,29 @@ const AddTransactionDialog: React.FC<Props> = (props: Props) => {
                   <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
               </FormControl>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box className={classes.container__icon__input}>
+              <TodayIcon />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <DatePicker
+                  autoOk
+                  label="Date"
+                  format="dd/MM/yyyy"
+                  clearable
+                  disableFuture
+                  value={selectedDate}
+                  className={classes.item__input}
+                  onChange={handleDateChange}
+                />
+              </MuiPickersUtilsProvider>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box className={classes.container__icon__input}>
+              <NotesIcon />
+              <TextField label="Note" className={classes.item__input} />
             </Box>
           </Grid>
         </Grid>
