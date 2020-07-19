@@ -1,0 +1,6 @@
+languages: node_js
+
+node-js: 
+  - "10"
+script: 
+  - yarn lint
