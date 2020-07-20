@@ -87,7 +87,7 @@ const NavBar = (props: RouteComponentProps<any>) => {
   const { location, history } = props
   const [currentRoute, setCurrentRoute] = useState(location.pathname || {})
   const [addTransactionDialogVisible, setTransactionDialogVisible] = useState(
-    true,
+    false,
   )
 
   const handleOnChangeRoute = (path: string): void => {
