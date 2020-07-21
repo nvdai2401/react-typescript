@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
   googleButton: {
     marginTop: theme.spacing(1.5),
     backgroundColor: 'rgb(66, 133, 244)',
+    color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: 'rgba(66, 133, 244, 0.8)',
+    },
   },
   forgotPassword: {
     alignSelf: 'flex-end',
@@ -103,7 +107,6 @@ const Auth: React.FC<any> = () => {
         </Button>
         <Button
           variant="contained"
-          color="secondary"
           size="large"
           className={classes.googleButton}
         >
