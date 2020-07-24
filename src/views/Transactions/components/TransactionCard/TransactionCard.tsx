@@ -20,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('md')]: {},
 }))
 
-interface Props {}
-
-const TransactionCard: React.FC<Props> = (props: Props) => {
+const TransactionCard: React.FC = (props) => {
   const classes = useStyles()
 
   return (
