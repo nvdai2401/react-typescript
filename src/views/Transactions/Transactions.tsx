@@ -19,11 +19,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up('md')]: {},
 }))
 
-export interface Props {
-  name?: string
-}
-
-const Transactions: React.FC<Props> = () => {
+const Transactions: React.FC = () => {
   const classes = useStyles()
 
   return (
